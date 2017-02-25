@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="Docutils 0.3.9: http://docutils.sourceforge.net/" />
+<title>GrAPPA Tutorial - Basic Usage</title>
+<link rel="stylesheet" href="./help.css" type="text/css" />
+</head>
+<body>
+<div class="document" id="help">
+
+<h1 class="title">A Simple GrAPPA Tutorial</h1>
+
+
+<p><strong>What you will learn from this tutorial.</strong></p>
+
+<p>This tutorial covers typical usage of the different tools available under GrAPPA.  By the end of this tutorial, you should be familiar with how to upload .CEL data to GrAPPA, normalize the .CEL data and place the results in a tabular format, extract correlations from the data, and use the resulting correlated data on one of GrAPPA's graph decomposition algorithms.</p>
+
+<hr class="docutils" />
+
+
+<p><strong>Uploading Data</strong></p>
+
+<figure>
+<img src="tutorial-images/upload-files.png"/>
+<aside>Uploading .CEL files</aside>
+</figure>
+
+<p>Although GrAPPA can be used to handle any data that can be placed in a tabular format, one of the most common uses for GrAPPA has been the analysis of biodata.  The <a class="reference" target="_blank" href="http://www.ncbi.nlm.nih.gov/geo/">Gene Expression Omnibus (GEO)</a> is a database which maintains a wealth of biodata that can be used on GrAPPA.  For this tutorial, we shall analyze .CEL data obtained via GEO from a study on human patients with cerebral palsy.  These files can be found <a class="reference" target="_blank" href="http://www.ncbi.nlm.nih.gov/geosuppl/?acc=GSE11686">here</a>.</p>
+
+<p>Once you have downloaded the .CEL files, you will need to upload them for use on GrAPPA.  To upload the files, Click on <b>Upload File</b> under the <b>Get Data</b> tab on the left-hand side <b>Tools</b> panel.  This will display the upload file screen in the center panel.  Under <b>File Format</b>, be sure to set the format of the file to .CEL.  Then, click on the <b>Browse</b> button to search for the files on your computer.  Once a .CEL file has been specified, click on the <b>Execute</b> button at the bottom.  Repeat until all the .CEL files needed are uploaded.  For this tutorial, I simply uploaded the first five .CEL files from the study.</p>
+
+<p>GrAPPA supports many different filetypes, not just .CEL files.  Here is a list of supported types:</p>
+<blockquote>
+<ul class="simple">
+<li>bcl - A list of bicliques.  Output by biclique.</li>
+<li>bel - A bipartite edgelist. Compare el and kel. Used by biclique.</li>
+<li>bmat - A binary matrix. Used by biclique.</li>
+<li>cel - A CEL format produced by microarray software.</li>
+<li>cl - A list of cliques produced by paraclique, maximum clique, or maximal clique.</li>
+<li>el - A graph edgelist format. All lines are 2 columns separated by a tab character. The first line consists of the number of vertices and the number of edges. All following lines contain two vertex labels denoting an undirected edge between them.</li>
+<li>gv - GraphViz format used as input to the graphviz tools.</li>
+<li>kcl - A list of k-partite cliques. Outputted by k-partite clique enumeration.</li>
+<li>kel - A k-partite edgelist. The only differences between a normal edgelist is that each group has its own size and the vertices must use contiguous integer labels.</li>
+<li>kmat - A k-partite matrix. See the documentation for k-partite clique enumeration for more information. Allows the use of arbitrary string labels.</li>
+<li>mat - A tab-delimited matrix file, with a header for the first row and first column.</li>
+<li>tab - A tab-delimited table format. Short for "tabular".</li>
+<li>txt - A plain ASCII text file</li>
+<li>wel - A weighted edgelist. Similar to el, except that each edge ends with a tab and a weight. Most of the tools available here expect floating point values between 0.0 and 1.0 as weights.</li>
+</ul>
+</blockquote>
+
+<figure>
+<img src="tutorial-images/refresh.png"/>
+<aside>Using refresh to update process status</aside>
+</figure>
+
+<p>Tip: Some processes, including uploading files, may take a bit of time.  If a process doesn't complete immediately, periodically click on the <b>Refresh</b> button to update the status of each process.  This is especially useful for some time consuming tasks, such as correlation and graph decomposition.</p>
+
+<hr class="docutils" />
+
+
+<p><strong>Normalization</strong></p>
+
+<figure>
+<img src="tutorial-images/normalize.png"/>
+<aside>Normalization of .CEL data</aside>
+</figure>
+
+<p>Now that we have uploaded our .CEL data, we need to compile the data into a single tabular file and normalize the values for further analysis.  First, we must specify the microarrays (.CEL files) that we wish to compile into a single .TAB file.  We will go ahead and compile all of the .CEL files we have uploaded.  First, click on <b>Add New Microarray</b>.  This should add a new microarray with the options to select the input (.CEL) file used or to delete the microarray.  Select the first .CEL file uploaded.  Add new microarrays for the remaining .CEL files.</p>
+
+<figure>
+<img src="tutorial-images/add-microarrays.png"/>
+<aside>Adding microarrays</aside>
+</figure>
+
+<p>After the microarrays have been added, we must specify the normalization method we wish to use.  We may do this under the <b>Methods</b> box.  The methods available are either Robust Multiarray Analysis (RMA), MAS5, or GCRMA.  A precise definition of these normalization algorithms is beyond the scope of this tutorial.  So, for our purposes, we will simply stick with RMA.</p>
+
+<p>Once you have compiled the microarrays and selected a normalization method to use, click on the <b>Execute</b> button.</p>
+
+<figure>
+<img src="tutorial-images/display-data.png"/>
+<aside>Displaying data files created in GrAPPA</aside>
+</figure>
+
+<p>After normalization has completed and the .TAB file has been created, you may view the contents of the file.  To view the contents of a newly created file, click on the <em>eyeball</em> icon directly to the right of the name of the file.</p>
+
+<figure>
+<img src="tutorial-images/normalized-data.png"/>
+<aside>Editing data attributes</aside>
+</figure>
+
+<p>Notice that GrAPPA assigns a default name to the .TAB file created by normalization.  Perhaps you wish to rename the file so it would have a more descriptive name.  To do this, click on the <em>pencil</em> icon (next to the <em>eyeball</em> icon) of the file you wish to edit.  A screen will appear in the middle panel labelled <b>Edit Attributes</b>.  The name field appears at the top.  Here, I have changed the name of the normalization data to "Cerebral Palsy Data Normalized". Be sure to <b>Save</b> your changes once you are done editing.</p>
+
+<hr class="docutils" />
+
+
+<p><strong>Correlation</strong></p>
+
+<figure>
+<img src="tutorial-images/correlate.png"/>
+<aside>Correlation analysis</aside>
+</figure>
+
+<p>Now that we have compiled and normalized our data, we will need to find correlations within our data in order to construct a graph.  To do this, click on <b>Correlate</b> under the <b>Data Preparation</b> tab.  As our input, we will use the normalized .TAB file we created previously.  However, since there are a lot of row variables included in the .TAB file, and many of these variables appear to be highly correlated, for the purposes of this tutorial, I have truncated the .TAB file to only include the first 1000 normalized variables.  Running correlation analysis on the original file would take a relatively large amount of time and possibly create a huge file.  Be careful when running correlation analysis!</p> 
+
+<p>Under output, we have three choices, either a frequency histogram, a weighted edgelist (.WEL file), or an un-weighted edgelist (.EL file).  The frequency histogram is simply a text file including the number of variables that fall within a correlation interval (these intervals range from -1.0 to 1.0 in increments of 0.01).  The weighted edgelist is a DIMACS representation of a graph with undirected, weighted edges.  The un-weighted edgelist is the same, except the edges have no weights.  Since we are interested in constructing a graph, but we do not need the weights of the correlations, we shall choose an un-weighted edgelist as our output.</p>
+
+<p>For weighted and un-weighted edgelists we have a few additional options.  We can change the threshold, choose which types of correlations we consider (only positive, only negative, or all), relabel the vertices of the graph (the row variables of our .TAB file) as integers, and choose to use correlation p-values instead of correlation values to construct edges.  For our purposes, we shall simply use the default values of these options.  Click on <b>Execute</b> to run correlation analysis on the .TAB file, which will create a .EL file.
+
+For those interested, the correlation techniqued used for our analysis is <a class="reference" target="_blank" href="http://en.wikipedia.org/wiki/Pearson_correlation">Pearson correlation</a>.
+
+<hr class="docutils" />
+
+
+<p><strong>Graph Decomposition</strong></p>
+
+<figure>
+<img src="tutorial-images/paraclique.png"/>
+<aside>Extracting paracliques from the graph</aside>
+</figure>
+
+<p>There are many different graph decomposition tools available under GrAPPA.  Note that all of these tools are used to solve <a class="reference" target="_blank" href="http://en.wikipedia.org/wiki/NP-hard">NP-hard</a> problems, which means that the computation time needed grows exponentially with the size of the input.  Take this in to account when you use GrAPPA!</p>
+
+<p>For this tutorial, we shall try to find all paracliques included in the graph we had constructed earlier.  A <em>paraclique</em> is a densely-connected subgraph that is almost a clique, but is missing a few edges.  Paraclique analysis is especially useful when dealing with noisy data.</p>  
+
+<p>First, click <b>Paraclique</b> under the <b>Graph Decomposition</b> tab. Then, for <b>Input</b> choose the un-weighted edgelist file created during correlation analysis ("Cerebral Palsy Data Correlated"). The other options for paraclique include the <b>Run Type</b>, <b>Paraclique Type</b>, <b>Glom Factor</b>, <b>Minimum Base Clique Size</b>, <b>Minimum Paraclique Size</b>, and <b>Maximum Paracliques to Report</b>.  For our purposes, we shall keep these options as they are.  Click on <b>Execute</b> to create a file containing a list of paracliques according to the options specified.</p>
+
+<p>Summary of paraclique options:</p>
+<blockquote>
+<ul class="simple">
+<li><b>Run Type:</b> Parallel runs are sent to Newton to be processed while serial runs are handled locally. The process of sending jobs to Teragrid introduces delays that will not be experienced by serial jobs. As such it is recommended that you run small/fast jobs as serial and large/long jobs as parallel.</li>
+<li><b>Original vs Accelerated Paraclique:</b> For original paraclique, the glom factor is fixed to the value specified, and growth stops when no more vertices can be added. For accelerated paraclique, the glom factor grows by one for each pass through the graph, and growth stops when the paraclique meets the aggressiveness ratio (defined below).</li>
+<li><b>Glom Factor:</b> If a potential vertex is disconnected from less than or equal to &lt;glom factor&gt; vertices in the existing paraclique, it will be added to the paraclique.</li>
+<li><b>Aggressiveness Ratio:</b> Controls the growth of accelerated paracliques. When the current glom factor is &lt;agg ratio&gt; percent or more of the paraclique size, growth is halted.</li>
+<li><b>Overlap:</b> With overlap set, paracliques are grown as with the non-overlapping algorithm, but then a second pass is done to add in previously removed vertices (ie vertices used in other paracliques).</li>
+<li><b>Maximum Paracliques to report:</b> The maximum number of paracliques to report. This is useful for restricting the output size and runtime. Use 0 to report unlimited paracliques.</li>
+</ul>
+</blockquote> 
+
+<p>Note that the graph created during correlation analysis can also use the <em>Maximum Clique</em>, <em>Maximal Clique</em>, and <em>Dominating Set</em> tools, since these all take .EL files as input.  Future tutorials will cover using <em>Biclique</em> and <em>k-Partite Clique Enumeration</em>, since these tools take special files as inputs.
+
+<hr class="docutils" />
+
+<p><strong>Visualization</strong></p>
+
+<p>GrAPPA contains tools that can convert files to the GraphViz .GV format as well as display these graphs using a preferred layout (e.g. dot, neato, fdp, circo and twopi).  However, care must be given when dealing with graph visualization, as very large graphs can take a very long time to generate formatted pictures.  If you know that the results of graph decomposition yield a very large graph (or series of graphs), it may be wise to download the graph and use more sophisticated tools to generate very large visualizations.</p>  
+
+<hr class="docutils" />
+
+<p><strong>Histories</strong></p>
+
+<figure>
+<img src="tutorial-images/rename-history.png"/>
+<aside>Editing a history</aside>
+</figure>
+
+<p>The collection of files contained in the right-hand panel is known as a <em>history</em>.  You may wish to edit your current history or save it for future use.  To do this, click on the <b>Options</b> button on the top right-hand corner of the GrAPPA window.  This opens the <em>History Options</em> screen, which allows the user to view previously stored histories, create a new empty history, rename the history, and so forth.</p>
+
+
+<hr class="docutils" />
+
+<p><strong>Galaxy</strong></p>
+
+GrAPPA is built on top of the Galaxy web framework.  Many of the features available in GrAPPA that are not covered in this tutorial are given a thorough treatment by the folks working on Galaxy.  For more information about Galaxy's features, visit <a href="http://wiki.galaxyproject.org/">http://wiki.galaxyproject.org/</a>. 
+
+</div>
+</body>
+</html>
+
